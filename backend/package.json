@@ -1,0 +1,41 @@
+{
+    "name": "indoor-trainer-backend",
+    "version": "1.0.0",
+    "node": ">=12.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "nodemon index.js --ignore api/openapi.yaml --ignore node-modules --ignore package.json --ignore package-lock.json",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "migrate": "./migrations/migrate.sh"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "eslint": "^8.6.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.3.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-prettier": "^4.0.0",
+        "nodemon": "^2.0.15",
+        "prettier": "^2.5.1",
+        "swagger-typescript-api": "^9.3.1"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.17.2",
+        "axios": "^0.27.2",
+        "bcryptjs": "^2.4.3",
+        "dotenv": "^16.0.1",
+        "express-openapi-validator": "^4.13.5",
+        "http-errors": "^2.0.0",
+        "http-status-codes": "^2.2.0",
+        "js-yaml": "^4.1.0",
+        "jsonwebtoken": "^9.0.0",
+        "mysql2": "^3.9.1",
+        "sequelize": "^6.36.0",
+        "otplib": "^12.0.1",
+        "swagger-ui-express": "^5.0.0"
+    }
+}

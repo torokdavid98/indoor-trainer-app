@@ -1,0 +1,56 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "plugin:prettier/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "no-floating-promise",
+        "unused-imports"
+    ],
+    "rules": {
+        "react/jsx-uses-react": "warn",
+        "react/jsx-uses-vars": "warn",
+        "prettier/prettier": [
+            "error",
+            {
+                "printWidth": 100,
+                "singleQuote": true,
+                "tabWidth": 4,
+                "endOfLine": "auto"
+            }
+        ],
+        "react/no-multi-comp": ["error", { "ignoreStateless": true }],
+        "require-await": "error",
+        "no-unsafe-finally": "error",
+        "no-plusplus": "off",
+        "no-floating-promise/no-floating-promise": "error",
+        "react/jsx-filename-extension": "off",
+        "react/function-component-definition": ["error", {
+            "namedComponents": ["function-declaration", "arrow-function"],
+            "unnamedComponents": ["function-expression", "arrow-function"]
+          }],
+        "react/prop-types": "off",
+        "react/jsx-props-no-spreading": "off",
+        "no-unused-vars": "off",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+            "warn",
+            { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+        ],
+        "camelcase": "off"
+    }
+}
