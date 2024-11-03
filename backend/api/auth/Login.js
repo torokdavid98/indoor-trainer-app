@@ -10,7 +10,7 @@ async function isTwoFactorEnabled(user) {
     return twoFactorEnabled;
 }
 
-function Login({ models, services: { JWTService, TwoFactorService } }) {
+function Login({ models, services: { JWTService, TwoFactorService, AuditLogService } }) {
     return async function login({ data: { email, password, oneTimePassword, secret } }) {
         const user = await models.Users.findOne({
             where: {
@@ -74,6 +74,14 @@ function Login({ models, services: { JWTService, TwoFactorService } }) {
         const token = await JWTService.generateToken({
             id: user.id,
             role: user.role,
+        });
+
+        // audit log
+        await AuditLogService.log(models, user.id, 'login', {
+            userId: user.id,
+            role: user.role,
+            email: user.email,
+            name: user.name,
         });
 
         return {

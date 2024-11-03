@@ -7,6 +7,8 @@ servers:
 tags:
   - name: Auth
     description: Manage authentication
+  - name: Trainings
+    description: Manage trainings
 
 paths:
   /auth/login:
@@ -75,6 +77,57 @@ paths:
           $ref: '#/components/responses/APIErrorResponse'
       security:
         - ApiKeyAuth: []
+  
+  /trainings: 
+    get:
+      tags:
+        - Trainings
+      summary: Get trainings matching the filters
+      operationId: getTrainings
+      parameters:
+        - $ref: '#/components/parameters/OffsetParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/SortDirParam'
+        - $ref: '#/components/parameters/IdListParam'
+        - $ref: '#/components/parameters/SearchParam'
+      responses:
+        200:
+          $ref: '#/components/responses/TrainingsSuccessResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
+    post:
+      tags:
+        - Trainings
+      summary: Add new training
+      operationId: addTraining
+      requestBody:
+        $ref: '#/components/requestBodies/AddEditTrainingBody'
+      responses:
+        200:
+          $ref: '#/components/responses/RequestStatusResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
+  
+  /usertrainings/{id}:
+    post:
+      tags:
+        - Trainings
+      summary: Update my training (save or remove)
+      operationId: updateTrainingList
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        200:
+          $ref: '#/components/responses/RequestStatusResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
 
 components:
   securitySchemes:
@@ -112,6 +165,35 @@ components:
       required: true
       schema:
         type: integer
+    SortParam:
+      name: sort
+      in: query
+      required: false
+      schema:
+        type: string
+    SortDirParam:
+      name: sortDir
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
+    IdListParam:
+      name: idList
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+    SearchParam:
+      name: search
+      in: query
+      required: false
+      schema:
+        type: string
   
   schemas:
     Status:
@@ -181,6 +263,37 @@ components:
                   type: string
                 oneTimePassword:
                   type: string
+    AddEditTrainingBody:
+      required: true
+      description: Training data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+                nullable: true
+              length:
+                type: integer
+              workout:
+                  type: array
+                  items:
+                    type: object
+                    nullable: true
+              type:
+                type: string
+                enum:
+                  - recovery
+                  - interval
+                  - race
+                  - long_distance
+                  - other
+              shared:
+                type: boolean
+                default: true
   
   responses:
     RequestStatusResponse:
@@ -218,3 +331,21 @@ components:
                 type: string
               secret:
                 type: string
+    TrainingsSuccessResponse:
+      description: Trainings data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trainings:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string

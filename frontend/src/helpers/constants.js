@@ -8,3 +8,11 @@ export const ROLES = Object.freeze({
     ADMIN: 'admin',
     USER: 'user',
 });
+
+// Audit log
+export const AUDIT_LOG_DESCRIPTIONS = Object.freeze({
+    login: 'User logged in',
+    save_two_factor_auth: 'User saved two factor authentication',
+    add_training: 'User added training',
+    update_training: 'User added/removed training to own list',
+});

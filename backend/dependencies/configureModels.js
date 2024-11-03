@@ -1,7 +1,13 @@
 const Users = require('../models/Users');
+const Trainings = require('../models/Trainings');
+const UserTrainings = require('../models/UserTrainings');
+const AuditLogs = require('../models/AuditLogs');
 
 function configureModels(sequelize) {
     Users.init(sequelize);
+    Trainings.init(sequelize);
+    UserTrainings.init(sequelize);
+    AuditLogs.init(sequelize);
 
     const { models } = sequelize;
 
@@ -11,6 +17,9 @@ function configureModels(sequelize) {
 
     return {
         Users,
+        Trainings,
+        UserTrainings,
+        AuditLogs,
         sequelize,
     };
 }
