@@ -120,7 +120,7 @@ const TrainingDetailsModal = ({ training, reloadData, showModal, MODAL_TYPE }) =
                         <br />
                         <CommonButton
                             label="Cancel"
-                            buttonType="secondary"
+                            buttonType="text"
                             onClick={() => setIsDeleting(false)}
                         />
                         &nbsp;&nbsp;

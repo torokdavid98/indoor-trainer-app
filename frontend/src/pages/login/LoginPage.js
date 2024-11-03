@@ -10,7 +10,7 @@ import formatErrorToString from '../../helpers/formatErrorToString';
 import { MODAL_TYPE, useModals } from '../../hooks/useModal';
 import CommonButton from '../../components/atom/CommonButton';
 
-const navigateUrl = '/dashboard';
+const navigateUrl = '/trainings';
 
 function LoginPage() {
     const { showModal } = useModals();

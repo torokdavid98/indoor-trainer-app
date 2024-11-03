@@ -7,6 +7,7 @@ import ForgotPasswordPage from './pages/login/ForgotPasswordPage';
 import { useAuth } from './hooks/useAuth';
 import NotFoundPage from './pages/notfound';
 import TrainingsPage from './pages/trainings';
+import Header from './components/header';
 
 function PageForEveryone({ children }) {
     const { user } = useAuth();
@@ -17,6 +18,7 @@ function PageForEveryone({ children }) {
 function App() {
     return (
         <Box sx={{ display: 'flex' }}>
+            <Header />
             <Box component="main" sx={{ flexGrow: 1, pt: 12 }}>
                 <Container maxWidth="xl">
                     <Routes>
