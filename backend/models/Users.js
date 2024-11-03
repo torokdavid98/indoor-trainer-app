@@ -53,7 +53,7 @@ class Users extends Model {
         this.belongsToMany(Trainings, {
             through: UserTrainings,
             foreignKey: 'user_id',
-            as: 'enrolledTrainings',
+            as: 'trainings',
         });
         // this.hasMany(Pwresets);
         // this.hasMany(EmailLogs);

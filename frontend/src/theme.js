@@ -5,7 +5,7 @@ const THEME_FONT = "'proxima-nova', sans-serif";
 const theme = () => {
     const BASE_COLORS = {
         DARK_BACKGROUND: '#1D3557',
-        MEDIUM_RED_BACKGROUND: '#E63946',
+        MEDIUM_RED_BACKGROUND: '#e63946',
         LIGHT_BACKGROUND: '#edf2f4',
         GREY_TEXT: '#191919',
         LIGHT_BORDER_COLOR: '#8d99ae',
@@ -453,9 +453,9 @@ const theme = () => {
             },
             subtitle1: {
                 fontFamily: THEME_FONT,
-                fontWeight: 600,
-                fontSize: '1.3rem',
-                lineHeight: '2.057142857142857rem',
+                fontWeight: 650,
+                fontSize: '1.5rem',
+                lineHeight: '2.5rem',
             },
             subtitle2: {
                 fontFamily: THEME_FONT,

@@ -38,11 +38,26 @@ function GetTrainings({ models }) {
         }
 
         const trainings = await models.Trainings.findAndCountAll({
-            logging: console.log,
             where: filter,
             offset,
             limit,
             order: [order],
+            include: [
+                {
+                    model: models.Users,
+                    as: 'creator',
+                    attributes: ['name'],
+                },
+                {
+                    model: models.UserTrainings,
+                    attributes: ['id'],
+                    as: 'user_trainings_connection',
+                    where: {
+                        user_id: user.id,
+                    },
+                    required: false,
+                },
+            ],
         });
 
         return {
@@ -51,6 +66,12 @@ function GetTrainings({ models }) {
                 id: training.id,
                 name: training.name,
                 description: training.description,
+                length: training.length,
+                workout: training.workout,
+                type: training.type,
+                shared: !!training.shared,
+                created_by: training.creator?.name || 'Unknown',
+                saved_training: !!training.user_trainings_connection.length,
             })),
         };
     };

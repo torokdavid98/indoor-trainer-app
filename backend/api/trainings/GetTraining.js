@@ -3,7 +3,24 @@ const { NotFoundError } = require('../../common/errors');
 
 function GetTraining({ models }) {
     return async function getTraining({ user, params: { id } }) {
-        const training = await models.Trainings.findByPk(id);
+        const training = await models.Trainings.findByPk(id, {
+            include: [
+                {
+                    model: models.Users,
+                    as: 'creator',
+                    attributes: ['name'],
+                },
+                {
+                    model: models.UserTrainings,
+                    attributes: ['id'],
+                    as: 'user_trainings_connection',
+                    where: {
+                        user_id: user.id,
+                    },
+                    required: false,
+                },
+            ],
+        });
 
         if (!training) {
             throw new NotFoundError('Training not found');
@@ -13,9 +30,6 @@ function GetTraining({ models }) {
             throw new NotFoundError('Training is private');
         }
 
-        // find who created the training
-        const userCreated = await models.Users.findByPk(training.created_by);
-
         return {
             id: training.id,
             name: training.name,
@@ -23,8 +37,9 @@ function GetTraining({ models }) {
             length: training.length,
             workout: training.workout,
             type: training.type,
-            shared: training.shared,
-            created_by: userCreated ? userCreated?.name : 'Unknown',
+            shared: !!training.shared,
+            created_by: training.creator?.name || 'Unknown',
+            saved_training: !!training.user_trainings_connection.length,
         };
     };
 }

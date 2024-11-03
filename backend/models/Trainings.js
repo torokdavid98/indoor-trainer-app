@@ -78,8 +78,10 @@ class Trainings extends Model {
         this.belongsToMany(Users, {
             through: UserTrainings,
             foreignKey: 'training_id',
-            as: 'users',
+            as: 'user_trainings',
         });
+        this.hasMany(UserTrainings, { foreignKey: 'training_id', as: 'user_trainings_connection' });
+
         // this.hasMany(TrainingsLikes, { foreignKey: 'training_id', as: 'likes' });
     }
 }

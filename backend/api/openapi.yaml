@@ -393,4 +393,6 @@ components:
                       type: boolean
                     created_by:
                       type: string
+                    saved_training:
+                      type: boolean
 

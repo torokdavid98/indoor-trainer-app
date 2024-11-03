@@ -1,9 +1,18 @@
 import React from 'react';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Box, Container } from '@mui/material';
 import LoginPage from './pages/login/LoginPage';
 import ForgotPasswordPage from './pages/login/ForgotPasswordPage';
+import { useAuth } from './hooks/useAuth';
+import NotFoundPage from './pages/notfound';
+import TrainingsPage from './pages/trainings';
+
+function PageForEveryone({ children }) {
+    const { user } = useAuth();
+    if (!user) return <Navigate to="/" />;
+    return children;
+}
 
 function App() {
     return (
@@ -13,6 +22,15 @@ function App() {
                     <Routes>
                         <Route path="/" exact element={<LoginPage />} />
                         <Route path="/forgotpassword" exact element={<ForgotPasswordPage />} />
+                        <Route
+                            path="/trainings"
+                            element={
+                                <PageForEveryone>
+                                    <TrainingsPage />
+                                </PageForEveryone>
+                            }
+                        />
+                        <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </Container>
             </Box>
