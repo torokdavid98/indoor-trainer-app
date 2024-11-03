@@ -15,4 +15,5 @@ export const AUDIT_LOG_DESCRIPTIONS = Object.freeze({
     save_two_factor_auth: 'User saved two factor authentication',
     add_training: 'User added training',
     update_training: 'User added/removed training to own list',
+    delete_training: 'User deleted training',
 });

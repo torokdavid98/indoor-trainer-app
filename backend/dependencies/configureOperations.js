@@ -8,6 +8,8 @@ const SaveQRCode = require('../api/auth/SaveQRCode');
 const AddTraining = require('../api/trainings/AddTraining');
 const GetTrainings = require('../api/trainings/GetTrainings');
 const UpdateTrainingList = require('../api/trainings/UpdateTrainingList');
+const GetTraining = require('../api/trainings/GetTraining');
+const DeleteTraining = require('../api/trainings/DeleteTraining');
 
 function configureOperations({ models, services }) {
     const login = Login({ models, services });
@@ -16,6 +18,8 @@ function configureOperations({ models, services }) {
     const addTraining = AddTraining({ models, services });
     const getTrainings = GetTrainings({ models, services });
     const updateTrainingList = UpdateTrainingList({ models, services });
+    const getTraining = GetTraining({ models, services });
+    const deleteTraining = DeleteTraining({ models, services });
 
     return {
         login,
@@ -24,6 +28,8 @@ function configureOperations({ models, services }) {
         addTraining,
         getTrainings,
         updateTrainingList,
+        getTraining,
+        deleteTraining,
     };
 }
 

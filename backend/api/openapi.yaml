@@ -78,7 +78,7 @@ paths:
       security:
         - ApiKeyAuth: []
   
-  /trainings: 
+  /trainings:
     get:
       tags:
         - Trainings
@@ -105,6 +105,36 @@ paths:
       operationId: addTraining
       requestBody:
         $ref: '#/components/requestBodies/AddEditTrainingBody'
+      responses:
+        200:
+          $ref: '#/components/responses/RequestStatusResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
+  
+  /trainings/{id}:
+    get:
+      tags:
+        - Trainings
+      summary: Get training by id
+      operationId: getTraining
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        200:
+          $ref: '#/components/responses/TrainingsSuccessResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
+    delete:
+      tags:
+        - Trainings
+      summary: Delete training by id
+      operationId: deleteTraining
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
       responses:
         200:
           $ref: '#/components/responses/RequestStatusResponse'
@@ -349,3 +379,18 @@ components:
                       type: string
                     description:
                       type: string
+                      nullable: true
+                    length:
+                      type: integer
+                    workout:
+                      type: array
+                      items:
+                        type: object
+                        nullable: true
+                    type:
+                      type: string
+                    shared:
+                      type: boolean
+                    created_by:
+                      type: string
+
