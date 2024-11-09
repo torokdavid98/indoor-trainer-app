@@ -12,6 +12,8 @@ const GetTraining = require('../api/trainings/GetTraining');
 const DeleteTraining = require('../api/trainings/DeleteTraining');
 const GetAuditLogs = require('../middleware/logs/GetAuditLogs');
 const GetMyTrainings = require('../api/mytrainings/GetMyTrainings');
+const GetMe = require('../api/users/GetMe');
+const EditMe = require('../api/users/EditMe');
 
 function configureOperations({ models, services }) {
     const login = Login({ models, services });
@@ -24,6 +26,8 @@ function configureOperations({ models, services }) {
     const deleteTraining = DeleteTraining({ models, services });
     const getAuditLogs = GetAuditLogs({ models, services });
     const getMyTrainings = GetMyTrainings({ models, services });
+    const getMe = GetMe({ models, services });
+    const editMe = EditMe({ models, services });
 
     return {
         login,
@@ -36,6 +40,8 @@ function configureOperations({ models, services }) {
         deleteTraining,
         getAuditLogs,
         getMyTrainings,
+        getMe,
+        editMe,
     };
 }
 

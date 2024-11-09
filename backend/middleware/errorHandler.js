@@ -1,8 +1,16 @@
 const { StatusCodes, ReasonPhrases } = require('http-status-codes');
-const { APIError } = require('../common/errors');
+const { APIError, APIErrorWithJson } = require('../common/errors');
 
 // eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res, next) {
+    if (err instanceof APIErrorWithJson) {
+        res.status(err.statusCode).json({
+            code: err.statusCode,
+            message: err.message,
+            ...err.json,
+        });
+        return;
+    }
     // only show errors that we wanted to show the user anyway
     if (err instanceof APIError) {
         res.status(err.statusCode).json({

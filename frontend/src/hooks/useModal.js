@@ -3,6 +3,7 @@ import ConfirmationModal from '../modals/ConfirmationModal';
 import ResetPasswordModal from '../modals/ResetPasswordModal';
 import TrainingDetailsModal from '../modals/TrainingDetailsModal';
 import EditTrainingModal from '../modals/EditTrainingModal';
+import TwoFactorAuthModal from '../modals/TwoFactorAuthModal';
 
 const ModalContext = React.createContext();
 
@@ -11,6 +12,7 @@ export const MODAL_TYPE = {
     RESET_PASSWORD: 'RESET_PASSWORD',
     TRAINING_DETAILS: 'TRAINING_DETAILS',
     EDIT_TRAINING: 'EDIT_TRAINING',
+    TWO_FACTOR_AUTH: 'TWO_FACTOR_AUTH',
     NONE: false,
 };
 
@@ -37,6 +39,9 @@ export function Modals() {
                         )}
                         {context.currentlyShowingModal === MODAL_TYPE.EDIT_TRAINING && (
                             <EditTrainingModal {...allProps} />
+                        )}
+                        {context.currentlyShowingModal === MODAL_TYPE.TWO_FACTOR_AUTH && (
+                            <TwoFactorAuthModal {...allProps} />
                         )}
                     </div>
                 );

@@ -11,6 +11,7 @@ import Header from './components/header';
 import { ROLES } from './helpers/constants';
 import AuditLogsPage from './pages/auditlogs';
 import MyTrainingsPage from './pages/mytrainings';
+import ProfilePage from './pages/profile';
 
 function PageForEveryone({ children }) {
     const { user } = useAuth();
@@ -55,6 +56,14 @@ function App() {
                                 <PageForAdminsOnly>
                                     <AuditLogsPage />
                                 </PageForAdminsOnly>
+                            }
+                        />
+                        <Route
+                            path="/user/me/"
+                            element={
+                                <PageForEveryone>
+                                    <ProfilePage />
+                                </PageForEveryone>
                             }
                         />
                         <Route path="*" element={<NotFoundPage />} />

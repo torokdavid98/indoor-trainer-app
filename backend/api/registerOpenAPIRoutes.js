@@ -1,6 +1,7 @@
 const OpenApiValidator = require('express-openapi-validator');
 const swaggerWebUi = require('swagger-ui-express');
 const express = require('express');
+const expressPath = require('path');
 
 const EXPRESS_HTTP_METHODS = ['get', 'put', 'post', 'delete', 'options', 'head', 'patch'];
 
@@ -52,16 +53,22 @@ function wrapOperation(operation) {
         if (typeof req.user !== 'undefined') {
             user = req.user;
         }
-        let auth0User = null;
-        if (typeof req.auth0User !== 'undefined') {
-            auth0User = req.auth0User;
-        }
 
         try {
-            const returned = operation({ params, data: req.body, user, auth0User, req });
+            const returned = operation({ params, data: req.body, user, res });
 
             if (returned instanceof Promise) {
-                returned.then((result) => res.json(result)).catch((e) => next(e));
+                returned
+                    .then((result) => {
+                        if (typeof result === 'string') {
+                            if (!res.headersSent) {
+                                res.send(result);
+                            }
+                        } else {
+                            res.json(result);
+                        }
+                    })
+                    .catch((e) => next(e));
                 return;
             }
             res.json(returned);
@@ -112,7 +119,7 @@ function registerOpenAPIRoutes(app, oasDoc, { operations, middleware }) {
         swaggerWebUi.serve,
         swaggerWebUi.setup(oasDoc, { swaggerOptions: { persistAuthorization: true } })
     );
-
+    app.use('/api', express.static(expressPath.join(__dirname, '../api')));
     app.get('/openapi.json', (req, res) => {
         res.json(oasDoc);
     });

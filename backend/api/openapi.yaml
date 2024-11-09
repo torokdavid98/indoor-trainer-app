@@ -198,6 +198,34 @@ paths:
           $ref: '#/components/responses/APIErrorResponse'
       security:
         - ApiKeyAuth: []
+  
+  /users/me:
+    get:
+      tags:
+        - Users
+      summary: "Get personal data for the current user"
+      operationId: getMe
+      responses:
+        200:
+          $ref: '#/components/responses/UserSuccessResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
+    patch:
+      tags:
+        - Users
+      summary: "Edit user"
+      operationId: editMe
+      requestBody:
+        $ref: '#/components/requestBodies/EditMeBody'
+      responses:
+        200:
+          $ref: '#/components/responses/RequestStatusResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
 
 components:
   securitySchemes:
@@ -292,6 +320,8 @@ components:
           format: int32
         message:
           type: string
+        json:
+          type: object
     Token:
       additionalProperties: false
       required:
@@ -319,6 +349,26 @@ components:
               type: string
             two_factor_enabled:
               type: boolean
+    User:
+      type: object
+      additionalProperties: false
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        profile_picture:
+          type: string
+          nullable: true
+        role:
+          type: string
+          enum:
+            - admin
+            - user
+        password:
+          type: string
   
   requestBodies:
     SaveQRCodeBody:
@@ -364,6 +414,18 @@ components:
               shared:
                 type: boolean
                 default: true
+    EditMeBody:
+      required: true
+      description: Edit user data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+                name:
+                  $ref: '#/components/schemas/User/properties/name'
+                profile_picture:
+                  $ref: '#/components/schemas/User/properties/profile_picture'
   
   responses:
     RequestStatusResponse:
@@ -466,4 +528,21 @@ components:
                       type: object
                     created_at:
                       type: object
+    UserSuccessResponse:
+      description: User data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                $ref: '#/components/schemas/User/properties/id'
+              name:
+                $ref: '#/components/schemas/User/properties/name'
+              email:
+                $ref: '#/components/schemas/User/properties/email'
+              role:
+                $ref: '#/components/schemas/User/properties/role'
+              two_factor_secret:
+                type: boolean
 

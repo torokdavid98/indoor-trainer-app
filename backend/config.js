@@ -29,3 +29,6 @@ module.exports.url = {
 module.exports.openAI = {
     privateKey: process.env.OPENAI_PRIVATE_KEY,
 };
+
+module.exports.twoFactorServiceName = 'Indoor Trainer App';
+module.exports.twoFactorEnabled = process.env.TWO_FACTOR_ENABLED === '1';

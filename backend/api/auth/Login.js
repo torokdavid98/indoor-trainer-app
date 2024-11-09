@@ -4,12 +4,6 @@ const { authenticator } = require('otplib');
 const { ConflictError, UnauthorizedError, APIErrorWithJson } = require('../../common/errors');
 const config = require('../../config');
 
-// TODO: false for now
-async function isTwoFactorEnabled(user) {
-    let twoFactorEnabled = false;
-    return twoFactorEnabled;
-}
-
 function Login({ models, services: { JWTService, TwoFactorService, AuditLogService } }) {
     return async function login({ data: { email, password, oneTimePassword, secret } }) {
         const user = await models.Users.findOne({
@@ -23,7 +17,7 @@ function Login({ models, services: { JWTService, TwoFactorService, AuditLogServi
             throw new Unauthorized('Incorrect email or password!');
         }
 
-        const isTwoFactor = await isTwoFactorEnabled(user);
+        const isTwoFactor = config.twoFactorEnabled;
 
         if (isTwoFactor) {
             // separate two cases
@@ -39,6 +33,11 @@ function Login({ models, services: { JWTService, TwoFactorService, AuditLogServi
 
                     await user.update({
                         two_factor_secret: secret,
+                    });
+                    // audit log
+                    await AuditLogService.log(models, user.id, 'save_two_factor_auth', {
+                        userId: user.id,
+                        email: user.email,
                     });
                 } else {
                     // generate qr code url
