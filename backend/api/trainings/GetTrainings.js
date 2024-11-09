@@ -46,7 +46,7 @@ function GetTrainings({ models }) {
                 {
                     model: models.Users,
                     as: 'creator',
-                    attributes: ['name'],
+                    attributes: ['name', 'id'],
                 },
                 {
                     model: models.UserTrainings,
@@ -71,6 +71,7 @@ function GetTrainings({ models }) {
                 type: training.type,
                 shared: !!training.shared,
                 created_by: training.creator?.name || 'Unknown',
+                created_by_id: training.creator?.id,
                 saved_training: !!training.user_trainings_connection.length,
             })),
         };

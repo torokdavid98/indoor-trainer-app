@@ -2,6 +2,7 @@ import React, { useCallback, useContext, useMemo, useState } from 'react';
 import ConfirmationModal from '../modals/ConfirmationModal';
 import ResetPasswordModal from '../modals/ResetPasswordModal';
 import TrainingDetailsModal from '../modals/TrainingDetailsModal';
+import EditTrainingModal from '../modals/EditTrainingModal';
 
 const ModalContext = React.createContext();
 
@@ -9,6 +10,7 @@ export const MODAL_TYPE = {
     CONFIRMATION: 'CONFIRMATION',
     RESET_PASSWORD: 'RESET_PASSWORD',
     TRAINING_DETAILS: 'TRAINING_DETAILS',
+    EDIT_TRAINING: 'EDIT_TRAINING',
     NONE: false,
 };
 
@@ -32,6 +34,9 @@ export function Modals() {
                         )}
                         {context.currentlyShowingModal === MODAL_TYPE.TRAINING_DETAILS && (
                             <TrainingDetailsModal {...allProps} />
+                        )}
+                        {context.currentlyShowingModal === MODAL_TYPE.EDIT_TRAINING && (
+                            <EditTrainingModal {...allProps} />
                         )}
                     </div>
                 );

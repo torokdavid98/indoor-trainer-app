@@ -98,6 +98,17 @@ const TrainingDetailsModal = ({ training, reloadData, showModal, MODAL_TYPE }) =
                         <DeleteIcon color="primary" />
                     </IconButton>
                 )}
+                {user.id === training.created_by_id && (
+                    <CommonButton
+                        label="Edit training"
+                        onClick={() => {
+                            showModal(MODAL_TYPE.EDIT_TRAINING, {
+                                training,
+                                reloadData,
+                            });
+                        }}
+                    />
+                )}
             </DialogActions>
             {isDeleting && (
                 <Box

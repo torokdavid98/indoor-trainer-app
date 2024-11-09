@@ -17,3 +17,11 @@ export const AUDIT_LOG_DESCRIPTIONS = Object.freeze({
     update_training: 'User added/removed training to own list',
     delete_training: 'User deleted training',
 });
+
+export const TRAINING_TYPES = Object.freeze({
+    RECOVERY: 'recovery',
+    INTERVAL: 'interval',
+    RACE: 'race',
+    LONG_DISTANCE: 'long_distance',
+    OTHER: 'other',
+});
