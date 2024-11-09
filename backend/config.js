@@ -25,3 +25,7 @@ module.exports.url = {
     siteUrl: process.env.SITE_URL || 'http://localhost:3000',
     apiUrl: process.env.API_URL || 'http://localhost:4000',
 };
+
+module.exports.openAI = {
+    privateKey: process.env.OPENAI_PRIVATE_KEY,
+};

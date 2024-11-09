@@ -23,19 +23,20 @@
         "swagger-typescript-api": "^9.3.1"
     },
     "dependencies": {
-        "cors": "^2.8.5",
-        "express": "^4.17.2",
         "axios": "^0.27.2",
         "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
         "dotenv": "^16.0.1",
+        "express": "^4.17.2",
         "express-openapi-validator": "^4.13.5",
         "http-errors": "^2.0.0",
         "http-status-codes": "^2.2.0",
         "js-yaml": "^4.1.0",
         "jsonwebtoken": "^9.0.0",
         "mysql2": "^3.9.1",
-        "sequelize": "^6.36.0",
+        "openai": "^4.71.1",
         "otplib": "^12.0.1",
+        "sequelize": "^6.36.0",
         "swagger-ui-express": "^5.0.0"
     }
 }

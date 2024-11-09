@@ -2,12 +2,14 @@ const Users = require('../models/Users');
 const Trainings = require('../models/Trainings');
 const UserTrainings = require('../models/UserTrainings');
 const AuditLogs = require('../models/AuditLogs');
+const AiCache = require('../models/AiCache');
 
 function configureModels(sequelize) {
     Users.init(sequelize);
     Trainings.init(sequelize);
     UserTrainings.init(sequelize);
     AuditLogs.init(sequelize);
+    AiCache.init(sequelize);
 
     const { models } = sequelize;
 
@@ -20,6 +22,7 @@ function configureModels(sequelize) {
         Trainings,
         UserTrainings,
         AuditLogs,
+        AiCache,
         sequelize,
     };
 }
