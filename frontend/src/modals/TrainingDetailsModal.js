@@ -8,6 +8,7 @@ import {
     Typography,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import React, { useState } from 'react';
 import useNotify from '../hooks/useNotify';
 import { useAuth } from '../hooks/useAuth';
@@ -93,21 +94,22 @@ const TrainingDetailsModal = ({ training, reloadData, showModal, MODAL_TYPE }) =
                         saveTraining();
                     }}
                 />
-                {user.role === ROLES.ADMIN && !isDeleting && (
-                    <IconButton onClick={() => setIsDeleting(true)}>
-                        <DeleteIcon color="primary" />
-                    </IconButton>
-                )}
                 {user.id === training.created_by_id && (
-                    <CommonButton
-                        label="Edit training"
+                    <IconButton
                         onClick={() => {
                             showModal(MODAL_TYPE.EDIT_TRAINING, {
                                 training,
                                 reloadData,
                             });
                         }}
-                    />
+                    >
+                        <EditIcon color="primary" />
+                    </IconButton>
+                )}
+                {user.role === ROLES.ADMIN && !isDeleting && (
+                    <IconButton onClick={() => setIsDeleting(true)}>
+                        <DeleteIcon color="primary" />
+                    </IconButton>
                 )}
             </DialogActions>
             {isDeleting && (
