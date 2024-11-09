@@ -158,6 +158,25 @@ paths:
           $ref: '#/components/responses/APIErrorResponse'
       security:
         - ApiKeyAuth: []
+  
+  /auditlog:
+    get:
+      tags:
+        - Logs
+      summary: 'Get audit logs matching the filters'
+      operationId: getAuditLogs
+      parameters:
+        - $ref: '#/components/parameters/OffsetParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/SortDirParam'
+      responses:
+        200:
+          $ref: '#/components/responses/AuditLogsSuccessResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
 
 components:
   securitySchemes:
@@ -398,4 +417,32 @@ components:
                       nullable: true
                     saved_training:
                       type: boolean
+    AuditLogsSuccessResponse:
+      description: Audit logs matching the filters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              total:
+                type: integer
+              auditlogs:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    user_id:
+                      type: integer
+                      nullable: true
+                    user_name:
+                      type: string
+                      nullable: true
+                    log_type:
+                      type: string
+                    log_data:
+                      type: object
+                    created_at:
+                      type: object
 

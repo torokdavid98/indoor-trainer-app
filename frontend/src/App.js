@@ -8,10 +8,18 @@ import { useAuth } from './hooks/useAuth';
 import NotFoundPage from './pages/notfound';
 import TrainingsPage from './pages/trainings';
 import Header from './components/header';
+import { ROLES } from './helpers/constants';
+import AuditLogsPage from './pages/auditlogs';
 
 function PageForEveryone({ children }) {
     const { user } = useAuth();
     if (!user) return <Navigate to="/" />;
+    return children;
+}
+
+function PageForAdminsOnly({ children }) {
+    const { user } = useAuth();
+    if (!user || user.role !== ROLES.ADMIN) return <Navigate to="/" />;
     return children;
 }
 
@@ -30,6 +38,14 @@ function App() {
                                 <PageForEveryone>
                                     <TrainingsPage />
                                 </PageForEveryone>
+                            }
+                        />
+                        <Route
+                            path="/auditlogs"
+                            element={
+                                <PageForAdminsOnly>
+                                    <AuditLogsPage />
+                                </PageForAdminsOnly>
                             }
                         />
                         <Route path="*" element={<NotFoundPage />} />

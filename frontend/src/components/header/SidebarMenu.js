@@ -2,6 +2,7 @@ import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip } f
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
+import MessageIcon from '@mui/icons-material/Message';
 import { useAuth } from '../../hooks/useAuth';
 import { ROLES } from '../../helpers/constants';
 
@@ -49,6 +50,16 @@ export default function SidebarMenu({ open }) {
                     icon={<DirectionsBikeIcon />}
                     onClick={() => {
                         navigate('/trainings');
+                    }}
+                />
+            )}
+            {adminRole && (
+                <SiderbarMenuItem
+                    open={open}
+                    title="Audit Logs"
+                    icon={<MessageIcon />}
+                    onClick={() => {
+                        navigate('/auditlogs');
                     }}
                 />
             )}
