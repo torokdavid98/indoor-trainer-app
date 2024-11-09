@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import DirectionsBikeIcon from '@mui/icons-material/DirectionsBike';
 import MessageIcon from '@mui/icons-material/Message';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useAuth } from '../../hooks/useAuth';
 import { ROLES } from '../../helpers/constants';
 
@@ -44,14 +45,24 @@ export default function SidebarMenu({ open }) {
     return (
         <List style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
             {user && (
-                <SiderbarMenuItem
-                    open={open}
-                    title="Trainings"
-                    icon={<DirectionsBikeIcon />}
-                    onClick={() => {
-                        navigate('/trainings');
-                    }}
-                />
+                <>
+                    <SiderbarMenuItem
+                        open={open}
+                        title="My Trainings"
+                        icon={<FavoriteBorderIcon />}
+                        onClick={() => {
+                            navigate('/mytrainings');
+                        }}
+                    />
+                    <SiderbarMenuItem
+                        open={open}
+                        title="Trainings"
+                        icon={<DirectionsBikeIcon />}
+                        onClick={() => {
+                            navigate('/trainings');
+                        }}
+                    />
+                </>
             )}
             {adminRole && (
                 <SiderbarMenuItem

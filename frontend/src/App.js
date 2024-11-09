@@ -10,6 +10,7 @@ import TrainingsPage from './pages/trainings';
 import Header from './components/header';
 import { ROLES } from './helpers/constants';
 import AuditLogsPage from './pages/auditlogs';
+import MyTrainingsPage from './pages/mytrainings';
 
 function PageForEveryone({ children }) {
     const { user } = useAuth();
@@ -37,6 +38,14 @@ function App() {
                             element={
                                 <PageForEveryone>
                                     <TrainingsPage />
+                                </PageForEveryone>
+                            }
+                        />
+                        <Route
+                            path="/mytrainings"
+                            element={
+                                <PageForEveryone>
+                                    <MyTrainingsPage />
                                 </PageForEveryone>
                             }
                         />

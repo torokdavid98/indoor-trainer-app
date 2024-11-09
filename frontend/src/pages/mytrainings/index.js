@@ -7,11 +7,11 @@ import { TABLE_ROW_COUNT_DEFAULT, TABLE_ROW_COUNT_OPTIONS } from '../../helpers/
 import useSorting from '../../hooks/useSorting';
 import PageWithTitle from '../../components/atom/PageWithTitle';
 import SearchInput from '../../components/atom/SearchInput';
-import CardList from './components/CardList';
 import TablePager from '../../components/atom/TablePager';
 import { MODAL_TYPE, useModals } from '../../hooks/useModal';
+import CardList from '../trainings/components/CardList';
 
-const TrainingsPage = () => {
+const MyTrainingsPage = () => {
     const { notifyError } = useNotify();
     const [{ limit, page }, setParams] = useState({ limit: TABLE_ROW_COUNT_DEFAULT, page: 0 });
     const { sort, sortDir, setSorting } = useSorting(['created_at', 'ASC']);
@@ -24,7 +24,7 @@ const TrainingsPage = () => {
     const getTrainings = async () => {
         setLoading(true);
         try {
-            const data = await doSwaggerCall('Trainings', 'getTrainings', {
+            const data = await doSwaggerCall('Trainings', 'getMyTrainings', {
                 offset: page * limit,
                 limit,
                 search,
@@ -45,7 +45,7 @@ const TrainingsPage = () => {
     }, [page, limit, sort, sortDir, search]);
 
     return (
-        <PageWithTitle title="Trainings">
+        <PageWithTitle title="My Trainings">
             <Grid container item xs={12} direction="row" alignItems="flex-end" sx={{ mt: 1 }}>
                 <Grid item xs={1}>
                     <Tooltip title="Create Training">
@@ -73,7 +73,12 @@ const TrainingsPage = () => {
                 </Grid>
             </Grid>
             <Grid item xs={12}>
-                <CardList trainings={trainings} loading={loading} reloadData={getTrainings} />
+                <CardList
+                    trainings={trainings}
+                    loading={loading}
+                    reloadData={getTrainings}
+                    myTrainings
+                />
             </Grid>
             <TablePager
                 page={page}
@@ -87,4 +92,4 @@ const TrainingsPage = () => {
     );
 };
 
-export default TrainingsPage;
+export default MyTrainingsPage;

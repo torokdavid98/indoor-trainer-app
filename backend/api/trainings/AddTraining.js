@@ -29,6 +29,13 @@ function AddTraining({ models, services: { AuditLogService } }) {
             shared,
         });
 
+        // when creating a new training, it is automatically saved for the creator
+        await models.UserTrainings.create({
+            user_id: user.id,
+            training_id: training.id,
+            status: 'pending',
+        });
+
         // audit log
         await AuditLogService.log(models, user.id, 'add_training', {
             id: training.id,

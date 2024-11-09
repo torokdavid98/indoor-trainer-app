@@ -112,6 +112,27 @@ paths:
           $ref: '#/components/responses/APIErrorResponse'
       security:
         - ApiKeyAuth: []
+
+  /trainings/mytrainings:
+     get:
+      tags:
+        - Trainings
+      summary: Get my trainings matching the filters
+      operationId: getMyTrainings
+      parameters:
+        - $ref: '#/components/parameters/OffsetParam'
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/SortParam'
+        - $ref: '#/components/parameters/SortDirParam'
+        - $ref: '#/components/parameters/IdListParam'
+        - $ref: '#/components/parameters/SearchParam'
+      responses:
+        200:
+          $ref: '#/components/responses/TrainingsSuccessResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'
+      security:
+        - ApiKeyAuth: []
   
   /trainings/{id}:
     get:

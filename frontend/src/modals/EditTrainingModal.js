@@ -5,6 +5,7 @@ import {
     DialogTitle,
     FormControl,
     Grid,
+    InputAdornment,
     InputLabel,
     MenuItem,
     Select,
@@ -48,6 +49,7 @@ function EditTrainingModal({ showModal, MODAL_TYPE, training = null, reloadData 
     const validateSchema = Yup.object().shape({
         name: Yup.string().required('Required'),
         description: Yup.string().required('Required'),
+        length: Yup.number().required('Required').min(1, 'Must be at least 1 minute'),
     });
 
     return (
@@ -96,6 +98,7 @@ function EditTrainingModal({ showModal, MODAL_TYPE, training = null, reloadData 
                                             fullWidth
                                             label="Description"
                                             type="text"
+                                            multiline
                                             value={values.description}
                                             onChange={(ev) =>
                                                 setFieldValue('description', ev.target.value)
@@ -119,6 +122,16 @@ function EditTrainingModal({ showModal, MODAL_TYPE, training = null, reloadData 
                                             }
                                             error={touched.length && Boolean(errors.length)}
                                             helperText={touched.length ? errors.length : ''}
+                                            InputProps={{
+                                                inputProps: {
+                                                    min: 1,
+                                                },
+                                                endAdornment: (
+                                                    <InputAdornment position="end">
+                                                        minutes
+                                                    </InputAdornment>
+                                                ),
+                                            }}
                                         />
                                     </Grid>
                                     <Grid item xs={6}>
