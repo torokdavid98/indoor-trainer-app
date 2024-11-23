@@ -32,3 +32,28 @@ module.exports.openAI = {
 
 module.exports.twoFactorServiceName = 'Indoor Trainer App';
 module.exports.twoFactorEnabled = process.env.TWO_FACTOR_ENABLED === '1';
+
+module.exports.nodemail = {
+    /**
+     * SMTP username
+     * @type {String}
+     */
+    nodemailUser: process.env.SMTP_USERNAME,
+    /**
+     * SMTP password
+     * @type {String}
+     */
+    nodemailPass: process.env.SMTP_PASSWORD,
+
+    /**
+     * SMTP host
+     * @type {String}
+     */
+    nodemailHost: process.env.NODEMAIL_HOST,
+
+    /**
+     * SMTP sender mail
+     */
+    nodemailSender: process.env.NODEMAIL_SENDER,
+    nodemailSenderName: process.env.NODEMAIL_SENDER_NAME,
+};

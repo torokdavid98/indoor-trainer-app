@@ -48,6 +48,20 @@ paths:
         default:
           $ref: '#/components/responses/APIErrorResponse'
 
+  /registration:
+    post:
+      tags:
+        - Auth
+      summary: Add new User
+      operationId: registration
+      requestBody:
+        $ref: '#/components/requestBodies/RegistrationBody'
+      responses:
+        200:
+          $ref: '#/components/responses/UserSuccessResponse'
+        default:
+          $ref: '#/components/responses/APIErrorResponse'    
+
   /qrcode:
     get:
       tags:
@@ -426,6 +440,18 @@ components:
                   $ref: '#/components/schemas/User/properties/name'
                 profile_picture:
                   $ref: '#/components/schemas/User/properties/profile_picture'
+    RegistrationBody:
+      required: true
+      description: Registration data
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                $ref: '#/components/schemas/User/properties/name'
+              email:
+                $ref: '#/components/schemas/User/properties/email'
   
   responses:
     RequestStatusResponse:

@@ -47,7 +47,7 @@ class Users extends Model {
         );
     }
 
-    static associate({ UserTrainings, Trainings /* Pwresets, EmailLogs */ }) {
+    static associate({ UserTrainings, Trainings, Pwresets, EmailLogs }) {
         // this.hasMany(Trainings);
         this.hasMany(Trainings, { foreignKey: 'created_by', as: 'createdTrainings' });
         this.belongsToMany(Trainings, {
@@ -55,8 +55,8 @@ class Users extends Model {
             foreignKey: 'user_id',
             as: 'trainings',
         });
-        // this.hasMany(Pwresets);
-        // this.hasMany(EmailLogs);
+        this.hasMany(Pwresets);
+        this.hasMany(EmailLogs);
     }
 }
 

@@ -1,0 +1,24 @@
+<%- include('parts/mail_header') %>
+<div style="padding-bottom: 25px;">
+    <div style="box-sizing: border-box; display: flex; flex-direction: column; align-items: center; padding: 24px; gap: 24px; width: 536px; height: 240px; background: #FFFFFF; border: 1px solid #D6D9DC; border-radius: 16px;">
+        <table style="width: 100%;" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <p style="font-weight: 300; font-size: 30px; line-height: 48px; color: #47BAEA; margin-top: 20px;">
+                        Hi <%= name; %>,
+                    </p>
+                    <p style="font-size: 13px; margin-top: 0; margin-bottom: 3px; color: #032E3D">
+                        Welcome! To complete your registration, please follow the link below to create a new password.
+                    </p>
+                    <p style="font-size: 13px; margin-top: 20px; margin-bottom: 3px;">
+                        <a style="text-decoration: none; padding: 8px 16px; color: #FFFFFF; background: #006D94; border-radius: 64px; flex: none; order: 2; flex-grow: 0;"
+                           href="<%= url; %>resetpassword/<%- userToken; %>">
+                            Click here to create a new password.
+                        </a>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<%- include('parts/mail_footer') %>
