@@ -1,16 +1,13 @@
 import { IconButton, Toolbar, Grid } from '@mui/material';
 import { Menu, ChevronLeft } from '@mui/icons-material';
 import React, { useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Drawer, DrawerHeader, AppBar } from './Drawer';
 import SidebarMenu from './SidebarMenu';
 import ProfileAvatar from './ProfileAvatar';
 import { useAuth } from '../../hooks/useAuth';
-import DarkModeSwitch from './DarkModeSwitch';
 
 const Header = () => {
     const { user } = useAuth();
-    const navigate = useNavigate();
     const [open, setOpen] = useState(true);
     const handleDrawerOpen = useCallback(() => {
         setOpen(true);
@@ -44,9 +41,6 @@ const Header = () => {
                         </IconButton>
                     )}
                     <Grid container justifyContent="flex-end">
-                        {/*  <Grid item>
-                            <DarkModeSwitch />
-                        </Grid> */}
                         {user && (
                             <Grid item sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                                 <ProfileAvatar />
