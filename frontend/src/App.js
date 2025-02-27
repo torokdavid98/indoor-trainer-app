@@ -12,6 +12,7 @@ import { ROLES } from './helpers/constants';
 import AuditLogsPage from './pages/auditlogs';
 import MyTrainingsPage from './pages/mytrainings';
 import ProfilePage from './pages/profile';
+import WorkoutPage from './pages/workout';
 
 function PageForEveryone({ children }) {
     const { user } = useAuth();
@@ -63,6 +64,22 @@ function App() {
                             element={
                                 <PageForEveryone>
                                     <ProfilePage />
+                                </PageForEveryone>
+                            }
+                        />
+                        <Route
+                            path="/mytrainings"
+                            element={
+                                <PageForEveryone>
+                                    <MyTrainingsPage />
+                                </PageForEveryone>
+                            }
+                        />
+                        <Route
+                            path="/workout/:trainingId"
+                            element={
+                                <PageForEveryone>
+                                    <WorkoutPage />
                                 </PageForEveryone>
                             }
                         />
