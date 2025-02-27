@@ -25,23 +25,23 @@ export function onIndoorBikeDataChanged(event) {
     }
 }
 
-export function onIndoorBikeDataChanged(event) {
-    const characteristic = event.target;
-    if (characteristic.value) {
-        let indoorBikeData = parseIndoorBikeData(characteristic.value);
+// export function onIndoorBikeDataChanged(event) {
+//     const characteristic = event.target;
+//     if (characteristic.value) {
+//         let indoorBikeData = parseIndoorBikeData(characteristic.value);
 
-        // Apply all processors that augment the data.
-        indoorBikeData = processingPipeline.process(indoorBikeData);
+//         // Apply all processors that augment the data.
+//         indoorBikeData = processingPipeline.process(indoorBikeData);
 
-        // // Apply a new grade to the fitness machine
-        // if (lastGrade !== indoorBikeData.calculatedGrade) {
-        //     setIndoorBikeSimulationParameters(0, indoorBikeData.calculatedGrade, 0, 0);
-        //     lastGrade = indoorBikeData.calculatedGrade;
-        // }
+//         // // Apply a new grade to the fitness machine
+//         // if (lastGrade !== indoorBikeData.calculatedGrade) {
+//         //     setIndoorBikeSimulationParameters(0, indoorBikeData.calculatedGrade, 0, 0);
+//         //     lastGrade = indoorBikeData.calculatedGrade;
+//         // }
 
-        indoorBikeDataSubject(indoorBikeData);
-    }
-}
+//         indoorBikeDataSubject(indoorBikeData);
+//     }
+// }
 
 export const parseIndoorBikeData = (data) => {
     const flags = data.getUint16(0, /*littleEndian=*/ true);
