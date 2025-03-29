@@ -58,7 +58,6 @@ class Trainings extends Model {
                     allowNull: false,
                     defaultValue: 1,
                 },
-                // TODO: cover image, difficulty
             },
             {
                 sequelize,

@@ -10,10 +10,18 @@ import {
     MenuItem,
     Select,
     TextField,
+    IconButton,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
 } from '@mui/material';
 import { Form, Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 import { doSwaggerCall } from '../hooks/useApi';
 import useNotify from '../hooks/useNotify';
 import CommonButton from '../components/atom/CommonButton';
@@ -22,6 +30,7 @@ function EditTrainingModal({ showModal, MODAL_TYPE, training = null, reloadData 
     const { notifySuccess, notifyError } = useNotify();
 
     const newTraining = !training;
+    const [wattageEntries, setWattageEntries] = useState(training?.wattage || []);
 
     const onSubmit = async (values) => {
         try {
@@ -33,6 +42,7 @@ function EditTrainingModal({ showModal, MODAL_TYPE, training = null, reloadData 
                     name: values.name.trim(),
                     description: values.description,
                     length: parseInt(values.length, 10),
+                    wattage: wattageEntries, // New field for wattage entries
                     workout: [{}], // TODO
                     type: values.type,
                     shared: values.shared,
@@ -51,6 +61,15 @@ function EditTrainingModal({ showModal, MODAL_TYPE, training = null, reloadData 
         description: Yup.string().required('Required'),
         length: Yup.number().required('Required').min(1, 'Must be at least 1 minute'),
     });
+
+    const handleAddWattageEntry = () => {
+        setWattageEntries([...wattageEntries, { minutes: '', watts: '' }]);
+    };
+
+    const handleDeleteWattageEntry = (index) => {
+        const newEntries = wattageEntries.filter((_, i) => i !== index);
+        setWattageEntries(newEntries);
+    };
 
     return (
         <Dialog
@@ -154,6 +173,93 @@ function EditTrainingModal({ showModal, MODAL_TYPE, training = null, reloadData 
                                                 <MenuItem value="other">Other</MenuItem>
                                             </Select>
                                         </FormControl>
+                                    </Grid>
+                                    {/* Wattage Table */}
+                                    <Grid item xs={12}>
+                                        <Table>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell>Minutes</TableCell>
+                                                    <TableCell>Required Watts</TableCell>
+                                                    <TableCell width="10%" />
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                {wattageEntries.map((entry, index) => (
+                                                    <TableRow key={index}>
+                                                        <TableCell>
+                                                            <TextField
+                                                                fullWidth
+                                                                value={entry.minutes}
+                                                                onChange={(e) => {
+                                                                    const newEntries = [
+                                                                        ...wattageEntries,
+                                                                    ];
+                                                                    newEntries[index].minutes =
+                                                                        e.target.value;
+                                                                    setWattageEntries(newEntries);
+                                                                }}
+                                                                type="number"
+                                                                InputProps={{
+                                                                    inputProps: {
+                                                                        min: 1,
+                                                                    },
+                                                                    endAdornment: (
+                                                                        <InputAdornment position="end">
+                                                                            minutes
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                }}
+                                                            />
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <TextField
+                                                                fullWidth
+                                                                value={entry.watts}
+                                                                onChange={(e) => {
+                                                                    const newEntries = [
+                                                                        ...wattageEntries,
+                                                                    ];
+                                                                    newEntries[index].watts =
+                                                                        e.target.value;
+                                                                    setWattageEntries(newEntries);
+                                                                }}
+                                                                type="number"
+                                                                InputProps={{
+                                                                    inputProps: {
+                                                                        min: 1,
+                                                                    },
+                                                                    endAdornment: (
+                                                                        <InputAdornment position="end">
+                                                                            watts
+                                                                        </InputAdornment>
+                                                                    ),
+                                                                }}
+                                                            />
+                                                        </TableCell>
+                                                        <TableCell align="right">
+                                                            <IconButton
+                                                                fullWidth
+                                                                onClick={() =>
+                                                                    handleDeleteWattageEntry(index)
+                                                                }
+                                                                color="secondary"
+                                                            >
+                                                                <DeleteIcon color="primary" />
+                                                            </IconButton>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                ))}
+                                                <TableRow>
+                                                    <TableCell colSpan={2} />
+                                                    <TableCell align="right">
+                                                        <IconButton onClick={handleAddWattageEntry}>
+                                                            <AddIcon />
+                                                        </IconButton>
+                                                    </TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
                                     </Grid>
                                 </Grid>
                             </DialogContent>
