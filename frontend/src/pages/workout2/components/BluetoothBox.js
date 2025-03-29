@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { Box, Button, Paper, Typography } from '@mui/material';
 import BluetoothIcon from '@mui/icons-material/Bluetooth';
 import BluetoothConnectedIcon from '@mui/icons-material/BluetoothConnected';
+import { connect } from '../../workout/helpers/bluetooth';
 
 const BluetoothBox = () => {
-    const [connectedDevice, setConnectedDevice] = useState(null);
-
-    const handleConnect = () => {
-        setConnectedDevice({ name: 'Power Meter', id: 'Elite TUO' });
-    };
+    const [device, setDevice] = useState(null);
 
     return (
         <Paper
@@ -21,26 +18,26 @@ const BluetoothBox = () => {
             }}
         >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                {connectedDevice ? (
+                {device ? (
                     <BluetoothConnectedIcon color="success" sx={{ marginRight: 1 }} />
                 ) : (
                     <BluetoothIcon sx={{ marginRight: 1 }} />
                 )}
                 <Typography variant="body1">
-                    {connectedDevice
-                        ? `Connected: ${connectedDevice.name} (${connectedDevice.id}
-                  )`
-                        : 'Not Connected'}
+                    {device ? `Connected: ${device.name} (${device.id})` : 'Not Connected'}
                 </Typography>
             </Box>
             <Button
                 variant="contained"
                 color="primary"
                 size="small"
-                onClick={handleConnect}
-                disabled={!!connectedDevice}
+                onClick={async () => {
+                    const dev = await connect();
+                    setDevice(dev);
+                }}
+                disabled={!!device}
             >
-                {connectedDevice ? 'Connected' : 'Connect'}
+                {device ? 'Connected' : 'Connect'}
             </Button>
         </Paper>
     );
