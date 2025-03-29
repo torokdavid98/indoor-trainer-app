@@ -13,6 +13,7 @@ import AuditLogsPage from './pages/auditlogs';
 import MyTrainingsPage from './pages/mytrainings';
 import ProfilePage from './pages/profile';
 import WorkoutPage from './pages/workout';
+import WorkoutPage2 from './pages/workout2';
 
 function PageForEveryone({ children }) {
     const { user } = useAuth();
@@ -80,6 +81,14 @@ function App() {
                             element={
                                 <PageForEveryone>
                                     <WorkoutPage />
+                                </PageForEveryone>
+                            }
+                        />
+                        <Route
+                            path="/workout2/:trainingId"
+                            element={
+                                <PageForEveryone>
+                                    <WorkoutPage2 />
                                 </PageForEveryone>
                             }
                         />
