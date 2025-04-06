@@ -52,7 +52,7 @@ const MyTrainingsPage = () => {
                         <Button
                             fullWidth
                             onClick={() => {
-                                showModal(MODAL_TYPE.EDIT_TRAINING, {
+                                showModal(MODAL_TYPE.TRAINING_SUGGESTION, {
                                     training: null,
                                     reloadData: getTrainings,
                                 });
